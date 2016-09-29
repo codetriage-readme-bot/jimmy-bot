@@ -2,8 +2,11 @@
 The World's Friendliest and Helpful Family Assistant
 
 **Current Commands**
+______
 `Tell <person> to <task-description>`
+______
 'List tasks'
+______
 
 **GOAL**
 - Allow communication within family, not middleman
