@@ -5,8 +5,8 @@ const app          = express()
 const proccess     = require('./proccess')
 const fs           = require('fs')
 
-const access_token = fs.readFileSync('access_token').toString().replace('\n','')
-const verify_token = fs.readFileSync('verify_token').toString().replace('\n','')
+const access_token = fs.readFileSync('access_token.txt').toString().replace('\n','')
+const verify_token = fs.readFileSync('verify_token.txt').toString().replace('\n','')
 
 app.set('port', (process.env.PORT || 5000))
 app.use(bodyParser.urlencoded({extended: false}))
