@@ -3,9 +3,9 @@ The World's Friendliest and Helpful Family Assistant
 
 **Current Commands**
 ______
-`Tell <person> to <task-description>`
+`Tell <person> to <task-description>` - Adds a task to the bot {name, description, time-stamp}
 ______
-'List tasks'
+`List tasks` - Returns all the tasks
 ______
 
 **GOAL**
