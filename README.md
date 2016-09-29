@@ -1,5 +1,5 @@
 # jimmy-bot
-The World's Friendliest and Helpful Family Assistant
+The World's Friendliest and Helpful Family Online Butler/Assistant
 
 **Current Commands**
 ______
