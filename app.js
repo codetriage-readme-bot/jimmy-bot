@@ -1,21 +1,16 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const request = require('superagent')
-const app = express()
-const proccess = require('./proccess')
+const express      = require('express')
+const bodyParser   = require('body-parser')
+const request      = require('superagent')
+const app          = express()
+const proccess     = require('./proccess')
+const fs           = require('fs')
 
 const access_token = fs.readFileSync('access_token').toString().replace('\n','')
 const verify_token = fs.readFileSync('verify_token').toString().replace('\n','')
 
 app.set('port', (process.env.PORT || 5000))
-
-// Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
-
-// Process application/json
 app.use(bodyParser.json())
-
-// Index route
 app.get('/', function (req, res) {
     res.send('Hello world, I am a chat bot')
 })
@@ -27,6 +22,8 @@ app.get('/webhook/', function (req, res) {
     }
     res.send('Error, wrong token')
 })
+
+// -- Beef is below
 
 app.post('/webhook', function (req, res) {
   messaging_events = req.body.entry[0].messaging
