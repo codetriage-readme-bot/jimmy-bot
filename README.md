@@ -1,6 +1,10 @@
 # jimmy-bot
 The World's Friendliest and Helpful Family Assistant
 
+**Current Commands**
+`Tell <person> to <task-description>`
+'List tasks'
+
 **GOAL**
 - Allow communication within family, not middleman
 - Integrate with MongoDB to save tasks _now in memory_
