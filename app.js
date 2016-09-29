@@ -4,7 +4,8 @@ const request = require('superagent')
 const app = express()
 const proccess = require('./proccess')
 
-const access_token = "EAAJuOkDW2KsBAGuiaUuErZBXM7ZA5OxBei1sqNhBqGd67EmsB36v6wJnCzwhBEXZAc5PdbvtsudvQuZAilk46lbsWZACaey3sKxmgFK210iWfACvZBMXysSzHK8IgMtDgSoakYXcGQgojMVKrjZAaNHZAWhMCFQMZC0vZCyZCzLvRZBHJgZDZD"
+const access_token = fs.readFileSync('access_token').toString().replace('\n','')
+const verify_token = fs.readFileSync('verify_token').toString().replace('\n','')
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -21,7 +22,7 @@ app.get('/', function (req, res) {
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+    if (req.query['hub.verify_token'] === verify_token) {
         res.send(req.query['hub.challenge'])
     }
     res.send('Error, wrong token')
