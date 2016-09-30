@@ -27,18 +27,19 @@ app.get('/webhook/', function (req, res) {
 
 app.post('/webhook', function (req, res) {
   messaging_events = req.body.entry[0].messaging
-  let event = req.body.entry[0].messaging[0]
-  let sender = event.sender.id
-  if (event.message && event.message.text) {
-    let msg = event.message.text.toLowerCase()
-    function send(message) {
-      sendMSG(sender, message)
+    for (i = 0; i < messaging_events.length; i++) {
+        event = req.body.entry[0].messaging[i]
+        sender = event.sender.id
+        if (event.message && event.message.text) {
+          function send(message) {
+            sendMSG(sender, message)
+          }
+          console.log('user: ' + msg)
+          console.log('----------')
+          send(proccess(event.message))
+        }
     }
-    console.log('user: ' + msg)
-    console.log('----------')
-    send(proccess(msg))
-  }
-  res.sendStatus(200)
+    res.sendStatus(200)
 })
 
 function sendMSG(sender, text) {
