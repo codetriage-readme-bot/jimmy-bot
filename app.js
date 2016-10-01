@@ -34,9 +34,7 @@ app.post('/webhook', function (req, res) {
           function send(message) {
             sendMSG(sender, message)
           }
-          console.log('user: ' + msg)
-          console.log('----------')
-          send(proccess(event.message))
+          send(proccess(event.message.text, sender))
         }
     }
     res.sendStatus(200)
