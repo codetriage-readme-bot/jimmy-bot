@@ -6,7 +6,7 @@
   "repository": "https://github.com/jshom/jimmy-bot",
   "scripts": {
     "start": "node app.js",
-    "test": "CODECOV_TOKEN='6dd613c2-46c6-4301-9ba2-a02a75966b83' mocha test -R spec"
+    "test": "mocha test -R spec"
   },
   "author": "Jacob Shomstein",
   "license": "UNLICENSED",
