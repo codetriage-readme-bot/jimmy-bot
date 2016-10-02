@@ -12,15 +12,16 @@ app.set('port', (process.env.PORT || 5000))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.get('/', function (req, res) {
-    res.send('Hello world, I am a chat bot')
+  res.send('Hello world, I am a chat bot')
 })
 
 // for Facebook verification
 app.get('/webhook/', function (req, res) {
-    if (req.query['hub.verify_token'] === verify_token) {
-        res.send(req.query['hub.challenge'])
-    }
+  if (req.query['hub.verify_token'] === verify_token) {
+    res.send(req.query['hub.challenge'])
+  } else {
     res.send('Error, wrong token')
+  }
 })
 
 // -- Beef is below
@@ -35,7 +36,19 @@ app.post('/webhook', function (req, res) {
             sendMSG(sender, message)
           }
           think(event.message.text, sender, function (res) {
-            send(res)
+            if (res.includes('\n')) {
+              let broken = res.split('\n')
+              function sendByNewLine(num) {
+                if (num == broken.length) {
+                  return
+                }
+                send(broken[num])
+                sendByNewLine(num + 1)
+              }
+              sendByNewLine(0)
+            } else {
+              send(res)
+            }
           })
         }
     }

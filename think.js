@@ -43,10 +43,10 @@ function createTask (person, description) {
 
 let pros = function (txt, user_id, callback) {
 
-  if (txt.check(/\b(hi|hey|sup|how you doing|suh)\b/igm)) {
+  if (txt.check(/\b(hi|hello|hey|sup|how you doing|suh)\b/igm)) {
     callback('hey how are you doing?')
   } else if (txt.check(/^(help|what can you do|what are you)/)) {
-    callback('save a task: tell <name> to <task>\nfinish a task: done with <task>\nlist completed tasks: list completed\nlist future tasks: tasks/list/assignments')
+    callback('save a task: tell <name> to <task>\nfinish a task: done with <task>\nsee completed tasks: list completed\nsee new tasks: tasks/list/assignments')
   } else if (txt.check(/\b(good|meh|ok|not much)\b/igm)) {
     callback('cool')
   } else if (txt.check(/(^(cool|damn|swag|awesome|amazing|wow|sweet))|(cool|amazing)$/)) {
@@ -72,8 +72,8 @@ let pros = function (txt, user_id, callback) {
     createTask(txt.split(' ')[1].capitalizeFirstLetter(), txt.replace(/tell\b.*?\bto/im, '').trim())
     callback('ok, telling ' + txt.split(' ')[1].capitalizeFirstLetter() + ' to ' + txt.replace(/tell\b.*?\bto/im, '').trim())
   } else if (txt.check(/list\s(finished|completed|done)/)) {
-    Task.find({completion : true}).limit(10).exec(function (err, tasks) {
-      callback(tasks.length != 0? tasks.map(task => task.bearer + ': ' + task.description).join('\n') : 'none, all are finished')
+    Task.find({completion : true}).sort('-time_created').limit(10).exec(function (err, tasks) {
+      callback(tasks.length != 0? tasks.map(task => task.bearer + ': ' + task.description).join('\n') : 'none, no finshed tasks')
     })
   } else if (txt.check(/tasks|assignments|list/im)) {
     Task.find({completion : false}).exec(function (err, tasks) {
