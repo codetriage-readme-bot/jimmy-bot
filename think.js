@@ -4,7 +4,7 @@ const moment = require('moment')
 mongoose.connect('mongodb://jshom:jshom@ds047146.mlab.com:47146/jimmy-bot')
 let db = mongoose.connection
 db.on('open', function () {
-  console.log('mdb: connected')
+  //console.log('mdb: connected')
 })
 
 const Task = mongoose.model('Task',
@@ -27,7 +27,7 @@ String.prototype.capitalizeFirstLetter = function() {
 }
 
 function createTask (person, description) {
-  console.log({person, description})
+  //console.log({person, description})
   let tsk = new Task({
     _id           : shortid.generate(),
     bearer        : person,
@@ -37,7 +37,7 @@ function createTask (person, description) {
     completion    : false
   })
   tsk.save(err => {
-    if (err) console.log(err)
+    //if (err) console.log(err)
   })
 }
 
@@ -49,8 +49,8 @@ let pros = function (txt, user_id, callback) {
     callback('save a task: tell <name> to <task>\nfinish a task: done with <task>\nlist completed tasks: list completed\nlist future tasks: tasks/list/assignments')
   } else if (txt.check(/\b(good|meh|ok|not much)\b/igm)) {
     callback('cool')
-  } else if (txt.check(/^(cool|swag|awesome|sweet)/)) {
-    callback('ye swag')
+  } else if (txt.check(/(^(cool|damn|swag|awesome|amazing|wow|sweet))|(cool|amazing)$/)) {
+    callback('ye, swagalicious!')
   } else if (txt.check(/bye|cya|l8r/igm)) {
     callback('cya later aligator')
   } else if (txt.check(/(clear|finish)\slast/igm)) {
@@ -60,7 +60,11 @@ let pros = function (txt, user_id, callback) {
   } else if (txt.check(/(clear all)|(delete all)/igm)) {
     Task.find({completion : false}, {_id : 1}).exec((err, res) => {
       res.forEach(task_id => {
-        Task.findByIdAndUpdate(task_id, {completion : true}, {upsert : false}, (err, res) => {if (err) console.log(err)})
+        Task.findByIdAndUpdate(task_id, {completion : true}, {upsert : false}, (err, res) => {
+          if (err) {
+            //console.log(err)
+          }
+        })
       })
       callback('alright, all cleared')
     })
@@ -73,15 +77,18 @@ let pros = function (txt, user_id, callback) {
     })
   } else if (txt.check(/tasks|assignments|list/im)) {
     Task.find({completion : false}).exec(function (err, tasks) {
-      callback(tasks.length != 0? tasks.map(task => task.bearer + ': ' + task.description).join('\n') : 'none, ask away')
+      callback(tasks.length != 0? tasks.map(task => task.bearer + ': ' + task.description).join('\n') : 'no new tasks, ask away')
     })
   } else if (txt.check(/(remove.*)|(done with.*)|(finished the.*)/igm)) {
     let t_description = new RegExp(txt.replace(/remove|done with (the)?|finished the/, '').trim())
-    Task.findOneAndUpdate({description : t_description}, {completion : true, time_finished : moment().unix()}, {upsert : false}, function (err, doc) {
-      console.log(doc)
-      callback('aight, said ' + doc.bearer + ' finished ' + doc.description)
+    Task.findOneAndUpdate({description : t_description, completion : false}, {completion : true, time_finished : moment().unix()}, {upsert : false}, function (err, doc) {
+      //console.log(doc)
+      if (doc) {
+        callback('aight, said ' + doc.bearer + ' finished ' + doc.description)
+      } else {
+        callback('aight, doesn\'t look like that exists, use *list* to see tasks')
+      }
     })
-    //callback('ok, I\' trust you, saying that you finished this: ' + task.find(task => task.description.check(txt.replace(/remove|done with|finished the/)[1].trim())).description)
   } else {
     callback('sorry, not smart enough yet')
   }

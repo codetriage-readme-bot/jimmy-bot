@@ -1,10 +1,10 @@
 const prompt = require('prompt')
-const proccess = require('./proccess')
+const think = require('./think')
 
 function test() {
   prompt.start()
   prompt.get(['input'], function (err, result) {
-    proccess(result.input, 7618364891, function (res) {
+    think(result.input, 7618364891, function (res) {
       console.log(res)
       console.log('\n')
       test()

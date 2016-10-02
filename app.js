@@ -2,7 +2,7 @@ const express      = require('express')
 const bodyParser   = require('body-parser')
 const request      = require('superagent')
 const app          = express()
-const proccess     = require('./proccess')
+const think        = require('./think')
 const fs           = require('fs')
 
 const access_token = fs.readFileSync('access_token.txt').toString().replace('\n','')
@@ -34,7 +34,9 @@ app.post('/webhook', function (req, res) {
           function send(message) {
             sendMSG(sender, message)
           }
-          send(proccess(event.message.text, sender))
+          think(event.message.text, sender, function (res) {
+            send(res)
+          })
         }
     }
     res.sendStatus(200)
@@ -51,7 +53,7 @@ function sendMSG(sender, text) {
       })
       .end(function (err, resp, body) {
         if(err) {
-          console.log('woops')
+          console.log('[i]')
         }
       })
 }
