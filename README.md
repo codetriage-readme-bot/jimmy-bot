@@ -1,6 +1,6 @@
 # jimmy-bot
 The World's Friendliest and Helpful Family Online Butler/Assistant
-
+[![Build Status](https://semaphoreci.com/api/v1/jshom/jimmy-bot/branches/master/badge.svg)](https://semaphoreci.com/jshom/jimmy-bot)
 **Current Commands**
 ______
 `Tell <person> to <task-description>` - Adds a task to the bot {name, description, time-stamp}
