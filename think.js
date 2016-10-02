@@ -71,8 +71,8 @@ let pros = function (txt, user_id, callback) {
   } else if (txt.check(/^tell.*to/im)) {
     createTask(txt.split(' ')[1].capitalizeFirstLetter(), txt.replace(/tell\b.*?\bto/im, '').trim())
     callback('ok, telling ' + txt.split(' ')[1].capitalizeFirstLetter() + ' to ' + txt.replace(/tell\b.*?\bto/im, '').trim())
-  } else if (txt.check(/list (finished|completed|done)/)) {
-    Task.find({completion : true}).exec(function (err, tasks) {
+  } else if (txt.check(/list\s(finished|completed|done)/)) {
+    Task.find({completion : true}).limit(10).exec(function (err, tasks) {
       callback(tasks.length != 0? tasks.map(task => task.bearer + ': ' + task.description).join('\n') : 'none, all are finished')
     })
   } else if (txt.check(/tasks|assignments|list/im)) {
