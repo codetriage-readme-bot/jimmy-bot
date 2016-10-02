@@ -44,7 +44,7 @@ function createTask (person, description) {
 let pros = function (txt, user_id, callback) {
 
   if (txt.check(/\b(hi|hey|sup|how you doing|suh)\b/igm)) {
-    callback('hey how you doing')
+    callback('hey how are you doing?')
   } else if (txt.check(/^(help|what can you do|what are you)/)) {
     callback('save a task: tell <name> to <task>\nfinish a task: done with <task>\nlist completed tasks: list completed\nlist future tasks: tasks/list/assignments')
   } else if (txt.check(/\b(good|meh|ok|not much)\b/igm)) {
