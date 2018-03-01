@@ -1,4 +1,4 @@
-# | jimmy-bot | [![Build Status](https://semaphoreci.com/api/v1/jshom/jimmy-bot/branches/master/badge.svg)](https://semaphoreci.com/jshom/jimmy-bot)
+# | jimmy-bot | [![Build Status](https://semaphoreci.com/api/v1/jshom/jimmy-bot/branches/master/badge.svg)](https://semaphoreci.com/jshom/jimmy-bot) [![Open Source Helpers](https://www.codetriage.com/jshom/jimmy-bot/badges/users.svg)](https://www.codetriage.com/jshom/jimmy-bot)
 The World's Friendliest and Helpful Family Online Butler/Assistant
 **Current Commands**
 ______
